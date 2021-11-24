@@ -4,7 +4,8 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    uploads_dir: '%kernel.project_dir%/public/uploads/'
+    locale: 'en'
+
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -25,15 +26,3 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
-
-    App\Listeners\AuthenticationSuccessListener:
-        arguments: ['%lexik_jwt_authentication.token_ttl%']
-        tags:
-            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_authentication_success, method: onAuthenticationSuccess, priority: -2 }
-
-    App\Listeners\RefreshedTokenListener:
-        arguments: ['%gesdinet_jwt_refresh_token.ttl%']
-
-    App\Listeners\JWTNotFoundListener:
-        tags:
-            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_not_found, method: onJWTNotFound, priority: 0 }
